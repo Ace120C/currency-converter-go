@@ -10,7 +10,7 @@ import (
 	// "github.com/charmbracelet/lipgloss"
 	// "os"
 	// "errors"
-	// "strconv"
+	"strconv"
 	// xstrings "github.com/charmbracelet/x/exp/strings"
 ) 
 
@@ -25,7 +25,8 @@ type currencies struct {
 func main() {
 	// accessible, _ := strconv.ParseBool(os.Getenv("ACCESSIBLE"))
 
-	var SelectedCurrency string
+	var SelectedCurrency, SelectedCurrency2 string
+  var WantedCurrency string
 
 	// Create the form
 	form := huh.NewForm(
@@ -41,14 +42,33 @@ func main() {
 				Options(huh.NewOptions("USD $", "JPY ¥", "EUR €", "GBP £")...).
 				Title("Choose Your Currency").
 				Value(&SelectedCurrency),
-		),
-	)
-  
+      huh.NewSelect[string]().
+				Options(huh.NewOptions("USD $", "JPY ¥", "EUR €", "GBP £")...).
+        Title("Which Currency to convert to? ").
+				Value(&SelectedCurrency2),
+      ),
+    huh.NewGroup(
+        huh.NewInput().
+        Title("How much? ").
+        Prompt(">").
+        Value(&WantedCurrency),
+	  ),
+  )
+   
+
  err := form.Run()
+
+ Wanted_CurrencyInt, err := strconv.Atoi(WantedCurrency)
+
+  if err != nil {
+    log.Fatal(err)
+  }
+
 
  if err != nil {
   log.Fatal(err)
  }
 	// Output the selected currency
-	fmt.Println("Selected Currency:", SelectedCurrency)
+
+  fmt.Println("Selected Currency:", SelectedCurrency, "Converted Currency:", SelectedCurrency2, "Wanted Currency: ", Wanted_CurrencyInt)
 }
