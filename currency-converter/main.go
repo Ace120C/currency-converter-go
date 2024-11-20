@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"log"
 	// "strings"
 	// "net/http"
 	// "encoding/json"
@@ -60,15 +59,11 @@ func main() {
 
  Wanted_CurrencyInt, err := strconv.Atoi(WantedCurrency)
 
-  if err != nil {
-    log.Fatal(err)
-  }
-
-
  if err != nil {
-  log.Fatal(err)
+    panic("illegal character: it needs to be a number!")
  }
-	// Output the selected currency
 
-  fmt.Println("Selected Currency:", SelectedCurrency, "Converted Currency:", SelectedCurrency2, "Wanted Currency: ", Wanted_CurrencyInt)
+ 	// Output the selected currency
+
+  fmt.Println("Selected Currency:", SelectedCurrency, "Converted Currency:", SelectedCurrency2, "Wanted Currency:", Wanted_CurrencyInt)
 }
